@@ -2,7 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import studentRouter from "./router/student.router.js";
+import userRouter from "./router/user.router.js";
+import issueRouter from "./router/issue.router.js";
 
 dotenv.config();
 
@@ -10,8 +11,8 @@ const app=express();
 app.use(cookieParser());
 app.use(express.json());
 
-app.use("/",studentRouter);
-
+app.use("/",userRouter);
+app.use("/issue",issueRouter);
 mongoose.connect(process.env.dbURL).then(()=>{
 
     console.log("DB connnected!");

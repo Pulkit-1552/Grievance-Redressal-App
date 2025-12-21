@@ -1,33 +1,35 @@
 import jwt from "jsonwebtoken";
+import User from "../model/user.model.js";
 
-export const isValidStudent=async(req,resp,next)=>{
-    try{
-    const token=req.cookies.tokenKey; 
-    if (!token)
-    return resp.status(400).json({
-      success: false,
-      message: "Token missing!",
-    });
+export const isValidUser = async (req, res, next) => {
+  try {
 
-    const match=jwt.verify(token,process.env.SECRET);
-    const studentId=match.id;
-    const student=await student.findById(studentId);
+    const authHeader = req.headers.authorization;
 
-    
-    if(!student){
-        return resp.status(401).json({
-            success:false,
-            message:"student not Exists!"
-        });
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({
+        success: false,
+        message: "Authorization token missing",
+      });
     }
-    req.student=student;
+    const token = authHeader.split(" ")[1];
+
+    const decoded = jwt.verify(token, process.env.SECRET);
+    const user = await User.findById(decoded.id).select("-password");
+
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "User does not exist",
+      });
+    }
+
+    req.user = user;
     next();
-    }
-    catch(err){
-       return resp.status(401).json({
-            status:false,
-            message:`error:${err.message}`
-        });
-    };
+  } catch (err) {
+    return res.status(401).json({
+      success: false,
+      message: "Invalid or expired token",
+    });
+  }
 };
-

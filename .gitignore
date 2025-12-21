@@ -18,20 +18,18 @@ Thumbs.db
 # ===============================
 # FRONTEND (Expo / React Native)
 # ===============================
-frontend/node_modules/
-frontend/.expo/
-frontend/.expo-shared/
-frontend/dist/
-frontend/build/
+# Frontend (Expo / React Native)
+my-app/node_modules/
+my-app/.expo/
+my-app/.expo-shared/
+my-app/dist/
+my-app/build/
+my-app/android/
+my-app/ios/
+my-app/web-build/
+my-app/*.apk
+my-app/*.aab
 
-# Expo
-frontend/web-build/
-frontend/*.apk
-frontend/*.aab
-
-# React Native
-frontend/android/
-frontend/ios/
 
 # ===============================
 # BACKEND (Node / Express)

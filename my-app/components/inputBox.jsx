@@ -2,10 +2,11 @@ import { View, Text, TextInput } from 'react-native'
 import React from 'react'
 import { style } from '../styles/style';
 
-const InputBox = ({text}) => {
+const InputBox = ({text,heading,setValue}) => {
   return (
     <View>
-      <TextInput placeholder={text} style={style.issueBoxes}/>
+      <Text style={style.heading}>{heading}</Text>
+      <TextInput multiline placeholder={text} style={style.issueBoxes} onChangeText={(text)=>setValue(text)}/>
     </View>
   )
 }

@@ -1,12 +1,12 @@
 import jwt from "jsonwebtoken";
-import Student from "../model/student.model.js";
 import bcrypt from "bcrypt";
+import User from "../model/user.model.js";
 
-export const createStudent=async (req,res)=>{
+export const createUser=async (req,res)=>{
 try{
     const data=req.body;
-    const{username,email,password}=data;
-    if(!username?.trim() || !email?.trim() || !password.trim())
+    const{username,email,password,rollNo}=data;
+    if(!username?.trim() || !email?.trim() || !password.trim() ||!rollNo.trim() )
     res.status(400).json({
         success:false,
         message:"All fields required !"
@@ -14,11 +14,11 @@ try{
     const encripted=await bcrypt.hash(data.password,10);
     data.password=encripted;
     
-    const newStudent= await Student.create(data);
-    const newToken = jwt.sign({id:newStudent._id},process.env.SECRET);
+    const newUser= await User.create(data);
+    const newToken = jwt.sign({id:newUser._id},process.env.SECRET);
     res.status(201).json({
         success:true,
-        data:newStudent,
+        data:newUser,
         token:newToken,
         message:"Account created successfully!"
     });
@@ -40,7 +40,7 @@ try{
     message:"All fields required",
     });
 
-    const user= await Student.findOne({email:email});
+    const user= await User.findOne({email:email});
     if(!user)
       return resp.status(401).json({
     success:false,

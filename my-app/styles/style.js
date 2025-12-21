@@ -44,10 +44,14 @@ export const style=StyleSheet.create({
   addImageButton:{borderStyle:"dashed",flexDirection:"row",borderWidth:0.7,height:50,backgroundColor:"#f7cca0ff",borderRadius:"30",alignItems:"center",justifyContent:"center",borderRadius:10,marginVertical:20},
   anonymousButton:{alignItems:"center",flexDirection:"row",backgroundColor:"#f7cca0ff",marginTop:20,borderRadius:"5%", justifyContent: "space-between",borderStyle:"dashed",borderWidth:1},
 
-  issueBoxes:{borderWidth:1,borderRadius:12,padding:15,borderColor:"#ccc",margin:15,marginBottom:5},
+  issueBoxes:{borderWidth:1,borderRadius:12,padding:15,borderColor:"#ccc",margin:15,marginVertical:5},
   submitButton:{height:50,backgroundColor:"#FEB61B",borderRadius:20,alignItems:"center",justifyContent:"center",marginBottom:100,borderWidth:0.4},
 
-  addIssueButton:{ alignItems: "center",justifyContent: "center",position: "absolute",left: "78%",top: "90%",zIndex: 1,backgroundColor: "#f2ececff",borderRadius: "40%",padding: 10,borderWidth: 0.6,borderColor: "black",
-  logoutButton:{backgroundColor:"#f23e3eff",padding:15,borderRadius:19,justifyContent:"center",alignItems:"center",marginTop:"10%"}
-}
+  addIssueButton:{ alignItems: "center",justifyContent: "center",position: "absolute",left: "78%",top: "90%",zIndex: 1,backgroundColor: "#f2ececff",borderRadius: "40%",padding: 10,borderWidth: 0.6,borderColor: "black"},
+  logoutButton:{backgroundColor:"#f23e3eff",padding:15,borderRadius:19,justifyContent:"center",alignItems:"center",marginTop:"10%"},
+  errorText: {color: "red",marginTop: 10},
+
+  scrollViewStyle:{ margin: 15 },
+  submitText:{ fontSize: 16, width: 80 },
+  heading:{marginLeft:20,marginTop:5,fontSize:16,fontWeight:800}
 });

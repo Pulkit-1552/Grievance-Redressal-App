@@ -10,11 +10,13 @@ import {
 import { useEffect, useState } from "react";
 import IssueBox from "../../components/issueBox.jsx";
 import { style } from "../../styles/style.js";
-import Data from "../../constants/data.js";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import LineSeparator from "../../components/lineSeparator.jsx";
 import { useRouter } from "expo-router";
+import axios from 'axios';
+import { useFocusEffect } from "expo-router";
+import { useCallback } from "react";
+
 
 export default function App() {
   const router = useRouter();
@@ -24,6 +26,7 @@ export default function App() {
   };
 
   const [name, setName] = useState("");
+  const [data,setData] =useState("");
 
   useEffect(() => {
     const fetchUsername = async () => {
@@ -33,6 +36,23 @@ export default function App() {
 
     fetchUsername();
   }, []);
+
+ 
+    
+   const ipAddress = "192.168.1.7";
+    const getIssues= async ()=>{
+    const Data=await axios.get(`http://${ipAddress}:8080/issue/`);
+    setData(Data.data.data);
+    };
+    getIssues();
+ 
+
+  useFocusEffect(
+  useCallback(() => {
+    getIssues();
+    console.log("call occured") // 👈 runs when screen comes back
+  }, [])
+);
 
   return (
     <SafeAreaView>
@@ -49,12 +69,12 @@ export default function App() {
       </View>
 
       <FlatList
-        data={Data}
+        data={data}
         renderItem={({ item }) => (
           <IssueBox
             issueText={item.title}
-            imageUrl="https://placehold.net/default.png"
-            date={item.createdOn}
+            imageUrl={item.imgUrl || "https://placehold.net/default.png"}
+            date={item.createdAt}
             status={item.status}
           />
         )}

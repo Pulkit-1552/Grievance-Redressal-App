@@ -5,9 +5,11 @@ import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import InputBox from "../../components/inputBox.jsx";
 
 
-const  signUp=()=>{
+const  SignUp=()=>{
+const ipAddress="192.168.1.7";
 
   const router=useRouter();
 
@@ -24,13 +26,14 @@ istoken();
   const [email,setEmail]=useState("");
   const [username,setUsername]=useState("");
   const [password,setPassword]=useState("");
+  const [rollNo,setRollno]=useState("");
   const [failedmsg,setFailedmsg]=useState("");
 
 const handleLogin=async ()=>{
   try{
     setFailedmsg("");
-    const response= await axios.post("http://172.16.4.25:8080/signup", //192.168.1.7
-      {email,password,username}
+    const response= await axios.post(`http://${ipAddress}:8080/signup`, //192.168.1.7
+      {email,password,username,rollNo}
     );
 
     if(response?.data?.success){
@@ -55,11 +58,16 @@ const handleLogin=async ()=>{
        <View style={style.loginTextBox}><Text style={style.loginText}>Signup </Text></View>
 
       <View style={style.textBoxes}>
-      <TextInput style={style.email} placeholder=" Username" onChangeText={setUsername}></TextInput>
-      <TextInput style={style.email}  placeholder=" Email Address" onChangeText={(text)=>setEmail(text)}/>
-      <TextInput style={style.password} placeholder=" Password"  onChangeText={(text)=>setPassword(text)} secureTextEntry></TextInput>
+      <TextInput style={style.email} placeholder=" Username" value={username} onChangeText={setUsername}></TextInput>
+      <TextInput style={style.password} placeholder=" Password"  value={password} onChangeText={(text)=>setPassword(text)} secureTextEntry></TextInput>
+      <TextInput style={style.email}  keyboardType="numeric" placeholder=" Roll number" value={rollNo}
+       onChangeText={(text)=>{ const numericData=text.replace((/[^0-9]/g),""); setRollno(numericData)}}/>
+       
+      <TextInput style={style.email}  placeholder=" Email Address"  value={email} onChangeText={(text)=>setEmail(text)}/>
+      
+      
       </View>
-    {failedmsg? <Text style={failedmsg}>{failedmsg}</Text>:null}
+    {failedmsg? <Text style={style.errorText}>{failedmsg}</Text>:null}
       <TouchableOpacity onPress={handleLogin}>
         <LinearGradient
         colors={["#3338aaff", "#bdc5e7ff"]}
@@ -84,4 +92,4 @@ const handleLogin=async ()=>{
     </View>
   )
 }
-export default signUp;
+export default SignUp;

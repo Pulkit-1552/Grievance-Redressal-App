@@ -1,4 +1,4 @@
-import {  Text, TextInput, TouchableOpacity, View } from "react-native"
+import {  Alert, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useState } from "react";
 import {Link} from "expo-router";
@@ -9,6 +9,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const Login=()=>{
+const ipAddress="192.168.1.7";
 
 const router=useRouter();
 useEffect(()=>{
@@ -29,7 +30,7 @@ const [failedmsg,setFailedmsg]=useState("");
 const handleLogin=async ()=>{
   try{
     setFailedmsg("");
-    const response= await axios.post("http://172.16.4.25:8080/login",
+    const response= await axios.post(`http://${ipAddress}:8080/login`,
       {email:email,password:password}
     );
 
@@ -58,7 +59,7 @@ const handleLogin=async ()=>{
       <TextInput style={style.password}  value={password} onChangeText={setPassword} placeholder=" Password" secureTextEntry></TextInput>
       </View>
 
-      <View><TouchableOpacity><Text style={style.forgotText}>Forgot password?</Text></TouchableOpacity></View>
+      <View><TouchableOpacity><Text style={style.forgotText} onPress={()=>{Alert.alert("This feature is unavailable ❗")}}>Forgot password?</Text></TouchableOpacity></View>
       {failedmsg? <Text style={{ color: "red" }} >{failedmsg}</Text> :null}
       
       <TouchableOpacity onPress={handleLogin}>
