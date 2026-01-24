@@ -1,3 +1,4 @@
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   View,
@@ -16,6 +17,7 @@ import { useRouter } from "expo-router";
 import axios from 'axios';
 import { useFocusEffect } from "expo-router";
 import { useCallback } from "react";
+import PageFooter from "../../components/pageFooter.jsx";
 
 
 export default function App() {
@@ -26,7 +28,8 @@ export default function App() {
   };
 
   const [name, setName] = useState("");
-  const [data,setData] =useState("");
+  const [data,setData] =useState([]);
+  const [isDataAvailable,setIsDataAvailable]=useState(false);
 
   useEffect(() => {
     const fetchUsername = async () => {
@@ -37,38 +40,35 @@ export default function App() {
     fetchUsername();
   }, []);
 
- 
-    
-   const ipAddress = "192.168.1.7";
     const getIssues= async ()=>{
-    const Data=await axios.get(`http://${ipAddress}:8080/issue/`);
-    setData(Data.data.data);
+    const Data=await axios.get(`https://grievly.onrender.com/issue/`);
+    setData(Data?.data?.data);
+    if(data.length) setIsDataAvailable(true);
+
     };
     getIssues();
  
-
   useFocusEffect(
-  useCallback(() => {
-    getIssues();
-    console.log("call occured") // 👈 runs when screen comes back
+  useCallback(() => {getIssues();
   }, [])
 );
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex:1,marginHorizontal:5}}>
+      
       <Text style={style.welcomeText}>Welcome {name} !</Text>
 
       <View
         style={style.addIssueButton}
       >
         <TouchableOpacity onPress={openAddIssueScreen}>
-          <Text style={{ fontSize: 30 }}>
-            <FontAwesome name="plus" size={45} color="#f09030ff" />
+          <Text style={{ opacity : 0.8 }}>
+            <FontAwesome name="plus" size={45} color="#222222" />
           </Text>
         </TouchableOpacity>
       </View>
 
-      <FlatList
+      { isDataAvailable ? (<FlatList
         data={data}
         renderItem={({ item }) => (
           <IssueBox
@@ -83,28 +83,8 @@ export default function App() {
           <View style={{ height: 10, backgroundColor: "#eceaebff" }} />
         )}
         onEndReachedThreshold={0.8}
-        ListFooterComponent={() => (
-          <View style={style.footer}>
-            <View style={style.parentBox}>
-              <Text style={style.rightsBox}>
-                <FontAwesome name="copyright" size={16} color="#ffffff" />
-                All rights reserved
-              </Text>
-
-              <View style={style.icons}>
-                <FontAwesome name="send" size={10} color="#ffffff" />
-                <Text style={{ fontSize: 12, color: "#ffffff" }}>
-                  Contact Us :{" "}
-                </Text>
-                <FontAwesome name="instagram" size={16} color="#ffffff" />
-                <FontAwesome name="whatsapp" size={16} color="#ffffff" />
-                <FontAwesome name="telegram" size={16} color="#ffffff" />
-                <FontAwesome name="youtube" size={16} color="#ffffff" />
-              </View>
-            </View>
-          </View>
-        )}
-      ></FlatList>
+        ListFooterComponent={() => <PageFooter/>}
+      ></FlatList>) : <Text style={style.noIssues}> No Issues Exists</Text>}
     </SafeAreaView>
   );
 }

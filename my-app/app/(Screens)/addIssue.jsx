@@ -10,7 +10,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AddIssue = () => {
 
-
   const [anonymous, setisAnonymous] = useState(false);
   const [urgency, setUrgency] = useState("low");
   const [category, setCategory] = useState("academic");
@@ -21,7 +20,8 @@ const AddIssue = () => {
 
 const handleSubmit = async () => {
   try {
-    const ipAddress = "192.168.1.7";
+    //const ipAddress = "192.168.1.7";
+    const ipAddress = "10.246.209.242";
 
     const token = await AsyncStorage.getItem("token");
 
@@ -30,7 +30,7 @@ const handleSubmit = async () => {
       return;
     }
     await axios.post(
-      `http://${ipAddress}:8080/issue/publish`,
+      `https://grievly.onrender.com/issue/publish`,
       {
         isAnonymous:anonymous,
         urgency,

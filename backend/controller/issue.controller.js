@@ -1,4 +1,3 @@
-import express from "express";
 import Issue from "../model/issue.model.js";
 
 export const getAllIssues = async(req,res)=>{
@@ -20,8 +19,6 @@ export const getAllIssues = async(req,res)=>{
 export const createIssue = async (req,res)=>{
     try {
         const {title,category,department,description,urgency,isAnonymous,imgUrl}=req.body;
-
-        console.log(title,category,department,urgency,isAnonymous,imgUrl);
         
         if(!title?.trim()){
            return res.status(400).json({
@@ -59,3 +56,24 @@ export const createIssue = async (req,res)=>{
       message: "Internal Server Error",
     });
 }};
+
+export const getSortedIssues = async (req, res) => {
+  try {
+    const { urgency,status} = req.query;
+
+    const filter = {};
+
+    if (urgency) {
+      filter.urgency = urgency;
+    }
+    if(pending)
+      filter.status = status;
+
+    const issues = await Issue.find(filter).sort({ createdAt: -1 });
+
+    res.status(200).json(issues);
+    
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
