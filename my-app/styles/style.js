@@ -46,7 +46,7 @@ export const style=StyleSheet.create({
   issueBoxes:{borderWidth:1,borderRadius:12,padding:15,borderColor:"#ccc",margin:15,marginVertical:5},
   submitButton:{height:50,backgroundColor:"#7ea2ceff",borderRadius:20,alignItems:"center",justifyContent:"center",marginBottom:100,borderWidth:0.4},
 
-  addIssueButton:{ alignItems: "center",justifyContent: "center",position: "absolute",left: "78%",top: "90%",zIndex: 1,backgroundColor: "#f2ececff",borderRadius: "50%",padding: 10,borderWidth: 0.6,borderColor: "black"},
+  addIssueButton:{ alignItems: "center",justifyContent: "center",position: "absolute",left: "78%",top: "90%",zIndex: 1,padding: 10},
   logoutButton:{backgroundColor:"#f23e3eff",padding:15,borderRadius:19,justifyContent:"center",alignItems:"center",marginTop:"10%"},
   errorText: {color: "red",marginTop: 10},
 
@@ -114,7 +114,7 @@ export const style=StyleSheet.create({
 },
 
 
-   noIssues:{
+    noIssues:{
     justifyContent:"center",
       alignItems: "center",
       alignSelf:"center",

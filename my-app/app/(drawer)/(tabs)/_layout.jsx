@@ -1,5 +1,5 @@
 import { router, Tabs } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity, View, StyleSheet } from "react-native";
 import styles from "../../../styles/styles.js";
 
@@ -25,13 +25,13 @@ export default function TabLayout() {
           ),
         }}
       />
-
+      
         <Tabs.Screen
-         name="temp"
+         name="notification"
          options={{
           tabBarIcon: ({ focused }) => (
             <Ionicons
-              name={focused ? "person" : "person-outline"}
+              name={focused ? "notifications" : "notifications-outline"}
               size={26}
               color={focused ? "#2f2e2e" : "#999"}
             />

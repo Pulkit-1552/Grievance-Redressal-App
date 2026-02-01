@@ -20,8 +20,6 @@ const AddIssue = () => {
 
 const handleSubmit = async () => {
   try {
-    //const ipAddress = "192.168.1.7";
-    const ipAddress = "10.246.209.242";
 
     const token = await AsyncStorage.getItem("token");
 
@@ -100,6 +98,9 @@ const handleSubmit = async () => {
       >
         <Picker.item label="Academic" value="academic" backgroundColor="black" />
         <Picker.item label="Ragging" value="ragging" />
+        <Picker.item label="Infrastructure related" value="ragging" />
+        <Picker.item label="Hostel issue" value="ragging" />
+        <Picker.item label="Faculty related " value="ragging" />
         <Picker.item label="Facilities" value="facilities" />
         <Picker.item label="Others" value="others" />
       </Picker>

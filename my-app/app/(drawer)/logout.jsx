@@ -1,12 +1,9 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import Logout from '../../components/logoutUi'
 
 const logout = () => {
   return (
-    <View>
-      <Text>logout</Text>
-    </View>
+    <Logout/>
   )
 }
 
-export default logout
+export default logout;

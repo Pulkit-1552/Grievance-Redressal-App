@@ -7,7 +7,7 @@ const issueSchema=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"user",required:true
     },
-    category:{type:String,enum:["academic","ragging","facilities","others"],default:"others"},
+    category:{type:String,enum:["academic","ragging","faculty","infrastructure","hostel","facilities","others"],default:"others"},
     department:{type:String,enum:["engineering","mba","humanities","others"],default:"others"},
     urgency:{type:String,enum:["low","medium","high","critical"],default:"low"},
     isAnonymous:{type:Boolean,default:false},

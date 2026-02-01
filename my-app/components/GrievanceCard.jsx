@@ -6,7 +6,7 @@ export const GrievanceCard = ({ title, subtitle, colors, onPress }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.65}
-      onPress={onPress}
+      onPress={()=>{onPress()}}
       style={{ width: "47%", marginBottom: 15 }}
     >
       <LinearGradient colors={colors} style={styles.card}>

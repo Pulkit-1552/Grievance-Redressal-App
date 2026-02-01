@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import YourIssues from '../yourIssues'
 
 const marked = () => {
   return (
     <View>
-      <Text>marked</Text>
-    </View>
+     <YourIssues/>
+    </View> 
   )
 }
 
-export default marked
+export default marked;

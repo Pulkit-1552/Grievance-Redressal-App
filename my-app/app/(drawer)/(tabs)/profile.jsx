@@ -1,65 +1,43 @@
-
-import { style } from "../../../styles/style.js";
-import { View, Text, ScrollView, Pressable } from "react-native";
+import styles from "../../../styles/profile";
+import { Image, Text, View, StyleSheet } from "react-native";
+import Logout from "../../../components/logoutUi";
+import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useRouter } from "expo-router";
 
-export default function Logout() {
-  const router=useRouter();
+export default function Profile() {
+  const [name, setName] = useState("");
 
-  const handleLogout = async () => {
-    await AsyncStorage.removeItem("token");
-    router.replace("/login");
-  };
+  useEffect(() => {
+    const fetchUsername = async () => {
+      try {
+        const storedName = await AsyncStorage.getItem("name");
+        setName(storedName || "User");
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchUsername();
+  }, []);
 
   return (
-    <ScrollView contentContainerStyle={style.containerAbout}>
-      
-      <View style={style.headerAbout}>
-        <Text style={style.titleAbout}>Logout</Text>
-        <Text style={style.subtitle}>
-          Are you sure you want to log out?
-        </Text>
+    <View style={styles.container}>
+      <View style={styles.profileRow}>
+        <Image
+          source={{
+            uri: "https://th.bing.com/th/id/OIP.ZlnrCst8FBcsJLF1doSrFQHaHa?w=192&h=192&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
+          }}
+          style={styles.avatar}
+        />
+
+        <View>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.subText}>Logged in user</Text>
+        </View>
       </View>
 
-      <View style={style.card}>
-        <Text style={style.headingAbout}>Confirm Logout</Text>
+      <View style={styles.divider} />
 
-        <Text style={style.textAbout}>
-          Logging out will end your current session and you will need to log in
-          again to access your account.
-        </Text>
-
-        <Pressable
-          onPress={handleLogout}
-          style={{ marginTop: 12 }}
-        >
-          <Text
-            style={[
-              style.textAbout,
-              { color: "#DC2626", fontWeight: "600" },
-            ]}
-          >
-            Logout
-          </Text>
-        </Pressable>
-
-        <Pressable onPress={() => router.back()}>
-          <Text
-            style={[
-              style.textAbout,
-              { color: "#2563EB", marginTop: 8 },
-            ]}
-          >
-            Cancel
-          </Text>
-        </Pressable>
-      </View>
-
-      <Text style={style.footerAbout}>
-        © 2025 Grievance App. All rights reserved.
-      </Text>
-
-    </ScrollView>
+      <Logout />
+    </View>
   );
 }
